@@ -1,4 +1,4 @@
-package concurrency.pool.connection;
+package concurrency.base.app.pool.connection;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,15 +1,16 @@
-package concurrency.pool.connection;
+package concurrency.base.app.pool.connection;
 
 import java.sql.Connection;
 import java.util.LinkedList;
 
 /**
+ * 一个简单的线程池
  * @author : gcs
  * @date :
  */
 public class ConnectionPool {
 
-    private final LinkedList<Connection> pool = new LinkedList<Connection>();
+    private final LinkedList<Connection> pool = new LinkedList<>();
 
     public ConnectionPool(int initialSize) {
         if (initialSize <= 0)
