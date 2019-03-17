@@ -35,13 +35,14 @@ public class RandomExtractLines {
 		int count = 0;
 		while ((line = bufferedReader.readLine()) != null) {
 			count++;
-			if (count == curNumber) {
-				lines.add(line);
-				if (lineNumbers.hasNext()) {
-					curNumber = lineNumbers.next();
-				} else {
-					return lines;
-				}
+			if (count != curNumber) {
+				continue;
+			}
+			lines.add(line);
+			if (lineNumbers.hasNext()) {
+				curNumber = lineNumbers.next();
+			} else {
+				return lines;
 			}
 		}
 		return lines;
