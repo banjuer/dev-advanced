@@ -87,7 +87,7 @@ public class RandomExtractLines {
 	}
 
 	/**
-	 * 方法二: 总体随机放到每一行的随机, 问题:数据倾斜严重
+	 * 方法二: 总体随机放到每一行的随机, 问题:不随机
 	 *
 	 * @param filePath
 	 * @param n
