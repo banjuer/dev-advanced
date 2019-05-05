@@ -14,6 +14,34 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class RandomExtractLines {
+	
+	/**
+	 * 蓄水池算法
+	 * @param filePath
+	 * @param n
+	 * @return
+	 * @throws IOException
+	 */
+	public List<String> extractLines4(String filePath, int n) throws IOException {
+		List<String> samples = new LinkedList<>();
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
+		String line;
+		int bound = 0;
+		Random random = new Random(System.currentTimeMillis());
+		while ((line = bufferedReader.readLine()) != null) {
+			bound++;
+			if (samples.size() < n) {
+				samples.add(line);
+			} else {
+				int take = random.nextInt(bound);
+				if (take < n) {
+					samples.remove(take);
+					samples.add(line);
+				}
+			}
+		}
+		return samples;
+	}
 
 	/**
 	 * 方法1: 获取最大行, 生成行内随机N个数, 读取文件
@@ -59,7 +87,7 @@ public class RandomExtractLines {
 	}
 
 	/**
-	 * 方法二: 总体随机放到每一行的随机, 问题:数据倾斜严重
+	 * 方法二: 总体随机放到每一行的随机, 问题:不随机
 	 *
 	 * @param filePath
 	 * @param n
