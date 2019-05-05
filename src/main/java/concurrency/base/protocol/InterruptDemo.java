@@ -1,4 +1,4 @@
-package concurrency.base.protocol.interrupt;
+package concurrency.base.protocol;
 
 import lombok.extern.slf4j.Slf4j;
 

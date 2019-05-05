@@ -16,61 +16,6 @@ import java.util.TreeSet;
 public class RandomExtractLines {
 
 	/**
-	 * 蓄水池算法
-	 * @param filePath
-	 * @param n
-	 * @return
-	 * @throws IOException
-	 */
-	public List<String> extractLines4(String filePath, int n) throws IOException {
-		List<String> samples = new LinkedList<>();
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
-		String line;
-		int bound = 0;
-		Random random = new Random(System.currentTimeMillis());
-		while ((line = bufferedReader.readLine()) != null) {
-			bound++;
-			if (samples.size() < n) {
-				samples.add(line);
-			} else {
-				int take = random.nextInt(bound);
-				if (take < n) {
-					samples.remove(take);
-					samples.add(line);
-				}
-			}
-		}
-		return samples;
-	}
-
-
-	/**
-	 * 方法3: 维护到大小为N队列, 读取一行并随机决定是否保留, 保留时随机从队列里删除一个
-	 * @param filePath
-	 * @param n
-	 * @return
-	 * @throws IOException
-	 */
-	public List<String> extractLines3(String filePath, int n) throws IOException {
-		List<String> samples = new LinkedList<>();
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
-		String line;
-		Random random = new Random(System.currentTimeMillis());
-		while ((line = bufferedReader.readLine()) != null) {
-			if (samples.size() < n) {
-				samples.add(line);
-			} else {
-				if (random.nextInt(2) == 1) {
-					int take = random.nextInt(n);
-					samples.remove(take);
-					samples.add(line);
-				}
-			}
-		}
-		return samples;
-	}
-
-	/**
 	 * 方法1: 获取最大行, 生成行内随机N个数, 读取文件
 	 * 
 	 * @param filePath
@@ -93,12 +38,12 @@ public class RandomExtractLines {
 			if (count != curNumber) {
 				continue;
 			}
+			lines.add(line);
 			if (lineNumbers.hasNext()) {
 				curNumber = lineNumbers.next();
 			} else {
 				return lines;
 			}
-			lines.add(line);
 		}
 		return lines;
 	}
@@ -114,7 +59,7 @@ public class RandomExtractLines {
 	}
 
 	/**
-	 * 方法二: 总体随机放到每一行的随机, 问题:不随机
+	 * 方法二: 总体随机放到每一行的随机, 问题:数据倾斜严重
 	 *
 	 * @param filePath
 	 * @param n
@@ -128,10 +73,10 @@ public class RandomExtractLines {
 		String line;
 		Random random = new Random(System.currentTimeMillis());
 		while ((line = bufferedReader.readLine()) != null) {
-			if (samples.size() < n) {
+			if (samples.size() <= n) {
 				samples.add(line);
 			} else {
-				int prob = random.nextInt(2);
+				int prob =random.nextInt(2);
 				if (prob == 1) {
 					samples.removeFirst();
 					samples.offer(line);
@@ -143,9 +88,10 @@ public class RandomExtractLines {
 
 	public static void main(String[] args) throws IOException {
 		RandomExtractLines rel = new RandomExtractLines();
-		String path = "C:/Users/Administrator/Desktop/temp/data/1000_sample.csv";
-		int n = 5;
-		System.out.println(rel.extractLines4(path, n));
+		String path = "C:/Users/Administrator/Desktop/temp/data/sample_data_int.txt";
+		int n = 12;
+		System.out.println(rel.extractLines1(path, n));
+		System.out.println(rel.extractLines2(path, n));
 	}
 
 }
