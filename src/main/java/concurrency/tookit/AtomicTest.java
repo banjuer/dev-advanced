@@ -13,7 +13,7 @@ public class AtomicTest {
 
     static volatile boolean flag = true;
     static String dateHour = "2019051110";
-    static AtomicInteger total = new AtomicInteger(100);
+    static AtomicInteger total = new AtomicInteger(5);
     static ExecutorService executorService = new ThreadPoolExecutor(4, 6, 10L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     public static void main(String[] args) {
