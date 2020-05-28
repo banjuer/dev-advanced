@@ -10,6 +10,25 @@ public class Sort {
     public static void buble(int[] arr) {
     }
 
+    /**
+     * 每次从待排序元素中选择一个元素插入到合适位置:
+     * 如何插入? 每次与前一个元素(已排序)比较, 小于则交换位置
+     * 利用已排序元素的特性, 优化插入效率 => 希尔排序
+     */
+    public static void insert(int[] arr) {
+        // 待排序
+        for (int i = 0; i < arr.length; i++) {
+            // 已排序
+            for (int j = 0; j < i; j++) {
+                if (arr[i] < arr[j])
+                    ArrayUtil.swap(arr, i, j);
+            }
+        }
+    }
+
+    /**
+     * 每次从待排序的元素中选择一个最小的索引, 与第一个待排序交换索引
+     */
     public static void select(int[] arr) {
         int sorted = 0;
         while (sorted < arr.length) {
@@ -35,9 +54,10 @@ public class Sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = ArrayUtil.random(1000, 20);
+        int[] arr = ArrayUtil.random(1000, 10);
         ArrayUtil.print(arr);
-        select(arr);
+        // select(arr);
+        insert(arr);
         ArrayUtil.print(arr);
         System.out.println(ArrayUtil.isSorted(arr));
     }
