@@ -7,13 +7,41 @@ import util.ArrayUtil;
  */
 public class Sort {
 
-    public static void buble(int[] arr) {
+    // ============== n(log n)复杂度排序算法 ==============
+
+
+    // ============== n^2复杂度排序算法 ==============
+
+    /**
+     * 待排序元素中, 每次取第一个元素A与后面元素B比较, A>B -> swap A, B 否则叫大数取B
+     * A的索引始终是B-1
+     */
+    public static void bubble(int[] arr) {
+        int sorted = 0;
+        // 已排序元素个数
+        while (sorted <= arr.length) {
+            // 标定元素 index -> i - 1
+            int p = arr[0];
+            // 待排序元素(标定元素的下一个)  index -> i
+            for (int i = 1; i < arr.length - sorted; i++) {
+                if (arr[i] > p) {
+                    p = arr[i];
+                } else {
+                    ArrayUtil.swap(arr, i, i - 1);
+                }
+
+            }
+            sorted ++;
+        }
     }
 
     /**
      * 每次从待排序元素中选择一个元素插入到合适位置:
      * 如何插入? 每次与前一个元素(已排序)比较, 小于则交换位置
      * 利用已排序元素的特性, 优化插入效率 => 希尔排序
+     *
+     * 待排序索引位: [i, length) 初始为[0, length)
+     * 已排序索引位: [0, i) 初始为[0, i)
      */
     public static void insert(int[] arr) {
         // 待排序
@@ -57,7 +85,8 @@ public class Sort {
         int[] arr = ArrayUtil.random(1000, 10);
         ArrayUtil.print(arr);
         // select(arr);
-        insert(arr);
+        // insert(arr);
+        bubble(arr);
         ArrayUtil.print(arr);
         System.out.println(ArrayUtil.isSorted(arr));
     }
