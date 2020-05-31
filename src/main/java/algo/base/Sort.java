@@ -7,8 +7,51 @@ import util.ArrayUtil;
  */
 public class Sort {
 
-    // ============== n(log n)复杂度排序算法 ==============
+     // ============== n(log n)复杂度排序算法 ==============
 
+    public static void merge(int[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+    }
+
+    /**
+     * [l, r]归并排序
+     */
+    private static void mergeSort(int[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        mergeSort(arr, l, mid);
+        mergeSort(arr, mid + 1, r);
+        merge(arr, l, mid,  r);
+    }
+
+    /**
+     * 以mid为界, 归并[l, mid] [mid + 1, r] 数组
+     */
+    private static void merge(int[] arr, int l, int mid, int r) {
+        int[] merge = new int[r - l + 1];
+        // 分别为左索引, 右索引, 与临时存储的索引
+        int m = l, n = mid + 1, i = 0;
+        for (; i < merge.length && m <= mid && n <= r; i++) {
+            if (arr[m] > arr[n]) {
+                merge[i] = arr[n];
+                n++;
+            } else {
+                merge[i] = arr[m];
+                m++;
+            }
+        }
+        for (int j = m; j <= mid; j++) {
+            merge[i++] = arr[j];
+        }
+        for (int j = n; j <= r; j++) {
+            merge[i++] = arr[j];
+        }
+        for (int j = l, k = 0; j <= r; j++, k++) {
+            arr[j] = merge[k];
+        }
+    }
 
     // ============== n^2复杂度排序算法 ==============
 
@@ -82,11 +125,12 @@ public class Sort {
     }
 
     public static void main(String[] args) {
-        int[] arr = ArrayUtil.random(1000, 10);
+        int[] arr = ArrayUtil.random(1000, 30);
         ArrayUtil.print(arr);
         // select(arr);
         // insert(arr);
-        bubble(arr);
+        // bubble(arr);
+        merge(arr);
         ArrayUtil.print(arr);
         System.out.println(ArrayUtil.isSorted(arr));
     }
