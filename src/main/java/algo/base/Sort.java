@@ -35,16 +35,19 @@ public class Sort {
 		int v = arr[l];
 		// [l+1, i) <= V, (j,r]>=v
 		int i = l + 1, j = r;
-		while (i <= j) {
+		while (true) {
 			// 第一个>=V
 			while (i <= r && arr[i] < v)
 				i++;
 			// 最后一个<=V
 			while (j >= l + 1 && arr[j] > v)
 				j--;
+			// 跳出条件
+			if (i > j) break;
 			ArrayUtil.swap(arr, i++, j--);
 		}
 		// 因为标定点在<=V一端,所以要与j交换
+		System.out.println("i:" + i + ",j:" + j);
 		ArrayUtil.swap(arr, l, j);
 		return j;
 	}
@@ -205,7 +208,7 @@ public class Sort {
 	}
 
 	public static void main(String[] args) {
-		int[] arr = ArrayUtil.random(10, 100000);
+		int[] arr = ArrayUtil.random(4, 10);
 		long start = System.currentTimeMillis();
 		// ArrayUtil.print(arr);
 		// select(arr);
